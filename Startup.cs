@@ -7,12 +7,15 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Logging;
 
 namespace WebApplicationBasic
 {
     public class Startup
     {
+
+        private IHostingEnvironment _hostingEnvironment;
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
@@ -21,6 +24,8 @@ namespace WebApplicationBasic
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
+
+            _hostingEnvironment = env;
         }
 
         public IConfigurationRoot Configuration { get; }
@@ -30,6 +35,11 @@ namespace WebApplicationBasic
         {
             // Add framework services.
             services.AddMvc();
+
+            var physicalProvider = _hostingEnvironment.ContentRootFileProvider;
+
+            // choose one provider to use for the app and register it
+            services.AddSingleton<IFileProvider>(physicalProvider);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
