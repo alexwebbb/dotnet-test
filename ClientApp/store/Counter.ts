@@ -34,9 +34,13 @@ export const actionCreators = {
 export const reducer: Reducer<CounterState> = (state: CounterState, action: KnownAction) => {
     switch (action.type) {
         case 'INCREMENT_COUNT':
-            return { count: state.count + 1 };
+            return {
+                count: state.count <= 1 ? state.count + 1 : state.count * state.count
+            };
         case 'DECREMENT_COUNT':
-            return { count: state.count - 1 };
+            return {
+                count: 1 / state.count
+            };
         default:
             // The following line guarantees that every action in the KnownAction union has been covered by a case above
             const exhaustiveCheck: never = action;
