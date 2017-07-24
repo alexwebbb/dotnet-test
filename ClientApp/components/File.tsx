@@ -1,7 +1,7 @@
 ﻿import * as React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 
-export default class File extends React.Component<RouteComponentProps<{ poop: string }>, {}> {
+export default class File extends React.Component<RouteComponentProps<{ poop?: string }>, {}> {
     public render() {
         return <div>
             <h1>Hello freaking world</h1>

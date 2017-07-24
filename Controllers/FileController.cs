@@ -19,8 +19,9 @@ namespace ReduxDotNet.Controllers
             _fileProvider = fileProvider;
         }
 
-        public IActionResult Index()
+        public IActionResult FetchFile()
         {
+            // this is me confirming local file storage
             var contents = _fileProvider.GetDirectoryContents("");
             return View(contents);
         }
